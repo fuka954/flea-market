@@ -1,0 +1,141 @@
+html,
+body {
+    height: 100%;
+}
+
+body,
+textarea,
+input {
+    color: #000000;
+}
+
+a {
+    text-decoration: none;
+    width: 280px;
+}
+
+textarea::placeholder,
+input::placeholder {
+    color: #000000;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-weight: 700;
+}
+
+h1 {
+    color: white;
+}
+
+/* ヘッダー */
+.header {
+    display: grid;
+    align-items: center;
+    padding: 16px 0;
+    max-height: 80px;
+    background: black;
+    border: 1px solid #E0DFDE;
+    text-align: center;
+    
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+}
+
+.header__logo {
+    margin: 0 auto;
+    width: 70%;
+    grid-column: 1;
+}
+
+.header__search {
+    grid-column: 2;
+    font-size: 16px;
+    padding: 0 30px;
+    background: #FFFFFF;
+    color: #000000;
+}
+
+.header-form__form {
+    margin: 0 auto;
+    width: 25%;
+}
+
+.header__nav {
+    display: flex;
+    font-size: 16px;
+    padding-left: 25%;
+    grid-column: 3;
+}
+
+.header__link {
+    margin: 0 auto;
+    width: 25%;
+    color: #FFFFFF;
+}
+
+.header__input {
+    display: block;
+    margin: 0 auto;
+    color: #FFFFFF;
+}
+
+
+/* コンテンツ */
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 48px 0;
+}
+
+.content__heading {
+    text-align: center;
+    font-size: 36px;
+}
+
+/* ボタン */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 8px 32px;
+    border: none;
+    background: #FF5555;
+    color: #FFFFFF;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* ページネーション */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.pagination li:not(.active) {
+    border: 1px solid #E0DFDE;
+    padding: 4px 12px;
+}
+
+.pagination li:not(:last-child) {
+    border-right: none;
+}
+
+.pagination a {
+    color: #8B7969;
+    text-decoration: none;
+}
+
+.pagination__link {
+    text-decoration: none;
+}
+
+/* .active {
+    padding: 4px 12px;
+    border: 1px solid #8B7969;
+    background-color: #8B7969;
+    color: #FFF;
+} */
