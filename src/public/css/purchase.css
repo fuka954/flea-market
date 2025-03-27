@@ -1,0 +1,139 @@
+.purchase {
+    padding: 40px 20px;
+    width: 100%;
+    background-color: #FFFF;
+}
+
+@media screen and (max-width: 1200px) {
+    .purchase {
+        width: 100vw;
+    }
+
+    p {
+        font-size: clamp(12px, 1vw, 16px);
+    }
+
+    .content-item span,
+    .comment-form__label {
+        font-size: clamp(11px, 1vw, 15px)
+    }
+
+    .purchase__image {
+        width: 50%;
+    }
+
+    .purchase__content {
+        width: 50%;
+    }
+}
+
+.purchase-form__form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.purchase__content {
+    width: 55%;
+    padding-right: 7%;
+}
+
+.product-group {
+    display: flex;
+    border-bottom: 1px solid #000000;
+}
+
+.purchase-form__product-name {
+    font-size: clamp(30px, 4vw, 45px);
+    height: 55px;
+    margin-bottom: 20%;
+}
+
+.product__image {
+    text-align: center;
+    width: 30%;
+    padding-bottom: 5%;
+}
+
+.product__item {
+    margin-left: 10%;
+}
+
+.purchase-group {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #000000;
+    padding: 4%;
+}
+
+.purchase-label {
+    width: 40%;
+    font-size: clamp(14px, 2vw, 20px);
+}
+
+.purchase-item {
+    margin-top: 4%;
+    padding-left: 10%;
+}
+
+.purchase-select {
+    width: 55%;
+    padding: 5px;
+    border: 1px solid #000000;
+}
+
+.purchase-select option[value="コンビニ払い"],option[value="カード払い"]{
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+.purchase-select option:hover {
+    background-color: #555;
+}
+
+.destination {
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase-link {
+    text-align: center;
+    align-content: center;
+    color: #0073CC;
+    width: 20%;
+    font-size: clamp(14px, 2vw, 20px);
+}
+
+.purchase-form {
+    width: 30%;
+}
+
+.purchase-form__group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8%;
+    border: 1px solid #000000;
+}
+
+.purchase-form__label {
+    width: 40%;
+    font-size: clamp(14px, 1vw, 20px);
+}
+
+.price-item {
+    font-size: clamp(4px, 2vw, 20px);
+}
+
+.purchase-form__btn {
+    font-size: clamp(15px, 2vw, 26px);
+    text-align: center;
+    font-weight: 100;
+    margin-top: 20%;
+}
+
+.purchase-form__product-price {
+    font-size: clamp(10px, 3vw, 25px);
+}

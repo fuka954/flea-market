@@ -20,6 +20,7 @@ class ProductSeeder extends Seeder
         $products = [
             [
                 'name' => '腕時計',
+                'brand' => 'ブランド1',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計', 
                 'image' => 'Armani+Mens+Clock.jpg',
                 'condition' => '良好',
@@ -28,6 +29,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'HDD',
+                'brand' => 'ブランド2',
                 'description' => '高速で信頼性の高いハードディスク',
                 'image' => 'HDD+Hard+Disk.jpg',
                 'condition' => '目立った傷や汚れなし',
@@ -36,6 +38,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => '玉ねぎ3束',
+                'brand' => 'ブランド3',
                 'description' => '新鮮な玉ねぎ3束のセット', 
                 'image' => 'iLoveIMG+d.jpg',
                 'condition' => 'やや傷や汚れあり',
@@ -44,6 +47,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => '革靴',
+                'brand' => 'ブランド4',
                 'description' => 'クラシックなデザインの革靴', 
                 'image' => 'Leather+Shoes+Product+Photo.jpg',
                 'condition' => '状態が悪い',
@@ -52,6 +56,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'ノートPC',
+                'brand' => 'ブランド5',
                 'description' => '高性能なノートパソコン', 
                 'image' => 'Living+Room+Laptop.jpg',
                 'condition' => '良好',
@@ -60,6 +65,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'マイク',
+                'brand' => 'ブランド6',
                 'description' => '高音質のレコーディング用マイク', 
                 'image' => 'Music+Mic+4632231.jpg',
                 'condition' => '目立った傷や汚れなし',
@@ -68,6 +74,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'ショルダーバッグ',
+                'brand' => 'ブランド7',
                 'description' => 'おしゃれなショルダーバッグ', 
                 'image' => 'Purse+fashion+pocket.jpg',
                 'condition' => 'やや傷や汚れあり',
@@ -76,6 +83,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'タンブラー',
+                'brand' => 'ブランド8',
                 'description' => '使いやすいタンブラー', 
                 'image' => 'Tumbler+souvenir.jpg',
                 'condition' => '状態が悪い',
@@ -84,6 +92,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'コーヒーミル',
+                'brand' => 'ブランド9',
                 'description' => '手動のコーヒーミル', 
                 'image' => 'Waitress+with+Coffee+Grinder.jpg',
                 'condition' => '良好',
@@ -92,6 +101,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'メイクセット',
+                'brand' => 'ブランド10',
                 'description' => '便利なメイクアップセット', 
                 'image' => '外出メイクアップセット.jpg',
                 'condition' => '目立った傷や汚れなし',
@@ -108,7 +118,7 @@ class ProductSeeder extends Seeder
                 Storage::putFileAs('public/images/product', new \Illuminate\Http\File($sourcePath), $productData['image']);
             }
 
-            $condition = Condition::where('name', $productData['condition'])->first();
+            $condition = Condition::where('condition', $productData['condition'])->first();
             $conditionId = $condition->id;
 
             $soldFlag = rand(0, 1);
@@ -117,6 +127,7 @@ class ProductSeeder extends Seeder
 
             $product = Product::create([
                 'name' => $productData['name'],
+                'brand' => $productData['brand'],
                 'description' => $productData['description'],
                 'image' => 'images/product/' . $productData['image'],
                 'condition_id' => $conditionId,
@@ -127,7 +138,7 @@ class ProductSeeder extends Seeder
             ]);
 
             foreach ($productData['categories'] as $categoryName) {
-                $category = Category::where('name', $categoryName)->first();
+                $category = Category::where('category', $categoryName)->first();
                 if ($category) {
                     $product->categories()->attach($category->id);
                 }

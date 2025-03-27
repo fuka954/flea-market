@@ -5,7 +5,10 @@
 @endsection
 
 @section('search')
-<input class="header__search" type="search" placeholder="なにをお探しですか？">
+<form class="search-form" action="/" method="post">
+@csrf
+    <input class="header__search" type="search" name="search-text" placeholder="なにをお探しですか？">
+</form>
 @endsection
 
 @section('nav')
@@ -24,54 +27,77 @@
 @endsection
 
 @section('content')
-<div class="profile-form">
-    <h2 class="profile-form__heading content__heading">プロフィール設定</h2>
-    <div class="profile-form__inner">
-        <form class="profile-form__form" action="/mypage/profile" method="post">
-        @csrf
-            <input type="hidden" name="user_id" value="{{ session('userId') }}">
-            <div class="profile-form__group">
-                <img class='profile-form__image' src="placeholder.png" alt="プロフィール画像">
-                <button>画像を選択する</button>
+<div class="content-form">
+    <div class="profile-form__image-item">
+        <img class='profile-form__image' src="{{ $profile['image'] ? asset('storage/' . $profile['image']) : asset('images/placeholder.png') }}" alt="プロフィール画像">
+        <p class='profile-form__name'>{{ $profile['name'] }}</p>
+        <a class="profile-form__file-label" href="/mypage/profile">プロフィールを編集</a>
+    </div>
+    <div class="tabs">
+        <span class="tab {{ session('active', 'sell') === 'sell' ? 'active' : '' }}" data-target="sell">出品した商品</span>
+        <span class="tab {{ session('active') === 'buy' ? 'active' : '' }}" data-target="buy">購入した商品</span>
+    </div>
+    <div class="product-container">
+        <div class="content-form__product-list product-list" id="sell">
+            <div class="content-form__card-list">
+                @foreach ($sell as $product)
+                <a class="content-form__card" href="/item/{{ $product['id'] }}">
+                    <div class="content-form__group">
+                        <img class="content-form__img" src="{{ asset('storage/' . $product['image']) }}" alt="{{ $product['name'] }}">
+                        <span class="content-form__text">{{ $product['name'] }}</span>
+                    </div>
+                    @if ($product['sold_flag'] == 1)
+                        <div class="sold-overlay">SOLD</div>
+                    @endif
+                </a>
+                @endforeach
             </div>
-            <div class="profile-form__group">
-                <label class="profile-form__label" for="name">ユーザー名</label>
-                <input class="profile-form__input" type="text" name="name" id="name">
-                <p class="register-form__error-message">
-                    @error('name')
-                    {{ $message }}
-                    @enderror
-                </p>
+        </div>
+        <div class="content-form__product-list product-list hidden" id="buy">
+            <div class="content-form__card-list">
+                @foreach ($buy as $product)
+                <a class="content-form__card" href="/item/{{ $product['id'] }}">
+                    <div class="content-form__group">
+                        <img class="content-form__img" src="{{ asset('storage/' . $product['image']) }}" alt="{{ $product['name'] }}">
+                        <span class="content-form__text">{{ $product['name'] }}</span>
+                    </div>
+                    @if ($product['sold_flag'] == 1)
+                        <div class="sold-overlay">SOLD</div>
+                    @endif
+                </a>
+                @endforeach
             </div>
-            <div class="profile-form__group">
-                <label class="profile-form__label" for="post_code">郵便番号</label>
-                <input class="profile-form__input" type="text" name="post_code" id="post_code">
-                <p class="register-form__error-message">
-                    @error('post_code')
-                    {{ $message }}
-                    @enderror
-                </p>
-            </div>
-            <div class="profile-form__group">
-                <label class="profile-form__label" for="address">住所</label>
-                <input class="profile-form__input" type="text" name="address" id="address">
-                <p class="register-form__error-message">
-                    @error('address')
-                    {{ $message }}
-                    @enderror
-                </p>
-            </div>
-            <div class="profile-form__group">
-                <label class="profile-form__label" for="building">建物名</label>
-                <input class="profile-form__input" type="text" name="building" id="building">
-                <p>
-                    @error('building')
-                    {{ $message }}
-                    @enderror
-                </p>
-            </div>
-            <input class="profile-form__btn btn" type="submit" value="更新する">
-        </form>
+        </div>
     </div>
 </div>
-@endsection('content')
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab');
+    const productLists = document.querySelectorAll('.product-list');
+    const sessionActiveTab = @json(session('active', 'sell'));
+    const params = new URLSearchParams(window.location.search);
+    let activeTab = params.get('tab') || sessionActiveTab;
+
+    setActiveTab(activeTab);
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetId = tab.getAttribute('data-target');
+            setActiveTab(targetId);
+
+            const newUrl = targetId === 'sell' ? '/mypage?tab=sell' : '/mypage?tab=buy';
+            history.pushState(null, '', newUrl);
+        });
+    });
+
+    function setActiveTab(targetId) {
+        tabs.forEach(t => t.classList.remove('active'));
+        document.querySelector(`.tab[data-target="${targetId}"]`).classList.add('active');
+
+        productLists.forEach(list => list.classList.add('hidden'));
+        document.getElementById(targetId).classList.remove('hidden');
+    }
+});
+</script>
+@endsection

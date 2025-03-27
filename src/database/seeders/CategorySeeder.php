@@ -33,7 +33,7 @@ class CategorySeeder extends Seeder
 
         foreach ($categories as $category) {
             DB::table('categories')->insert([
-                'name' => $category,
+                'category' => $category,
             ]);
         }
     }

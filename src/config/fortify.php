@@ -74,7 +74,7 @@ return [
     |
     */
 
-    'home' => RouteServiceProvider::HOME,
+    'home' => '/login',
 
     /*
     |--------------------------------------------------------------------------
@@ -147,7 +147,7 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([
@@ -155,6 +155,11 @@ return [
             'confirmPassword' => true,
             // 'window' => 0,
         ]),
+    ],
+
+    'redirects' => [
+        'login' => '/',  // メール認証後のログイン後
+        // 'verification' => '/login',  // メール未認証の場合
     ],
 
 ];

@@ -24,7 +24,7 @@ class ConditionSeeder extends Seeder
 
         foreach ($conditions as $condition) {
             DB::table('conditions')->insert([
-                'name' => $condition,
+                'condition' => $condition,
             ]);
         }
     }

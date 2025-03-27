@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Requests\VerifyEmailRequest;
+use App\Actions\Fortify\AuthenticateUser;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Event;
 use Laravel\Fortify\Events\Authenticated;
 use Laravel\Fortify\Contracts\LoginResponse;
+use App\Actions\Fortify\LoginUser;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -57,5 +60,6 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+
     }
 }

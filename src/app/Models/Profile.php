@@ -15,7 +15,7 @@ class Profile extends Model
         'post_code',
         'address',
         'building',
-        // 'image',
+        'image',
     ];
 
     public function user()
@@ -26,6 +26,11 @@ class Profile extends Model
     public function favorites()
     {
         return $this->belongsToMany(Product::class, 'favorites', 'profile_id', 'product_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
-use Illuminate\Http\Request;
 use App\Models\User;
 
 class UserController extends Controller
@@ -15,6 +14,7 @@ class UserController extends Controller
         $user['password'] = Hash::make($user['password']);
         $userId = User::create($user)->id;
         session()->flash('userId', $userId);
+
         return redirect('/mypage/profile');
     }
 }

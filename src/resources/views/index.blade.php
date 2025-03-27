@@ -5,7 +5,11 @@
 @endsection
 
 @section('search')
-<input class="header__search" type="search" placeholder="なにをお探しですか？">
+<form class="search-form" action="/" method="post">
+@csrf
+    <input class="header__search" type="search" name="search-text" placeholder="なにをお探しですか？" value="{{ $filter['search-text'] }}">
+    <input type="hidden" name="tab" id="tab-input" value="{{ request('tab', 'recommend') }}">
+</form>
 @endsection
 
 @section('nav')
@@ -26,30 +30,36 @@
 @section('content')
 <div class="content-form">
     <div class="tabs">
-        <span class="tab active" data-target="recommend">おすすめ</span>
-        <span class="tab" data-target="mylist">マイリスト</span>
+        <span class="tab {{ $tab === 'recommend' ? 'active' : '' }}" data-target="recommend">おすすめ</span>
+        <span class="tab {{ $tab === 'mylist' ? 'active' : '' }}" data-target="mylist">マイリスト</span>
     </div>
     <div class="product-container">
         <div class="content-form__product-list product-list" id="recommend">
             <div class="content-form__card-list">
                 @foreach ($productList as $product)
-                <a href="/products/{{ $product['id'] }}">
+                <a class="content-form__card" href="/item/{{ $product['id'] }}">
                     <div class="content-form__group">
                         <img class="content-from__img" src="{{ asset('storage/' . $product['image']) }}" alt="{{ $product['name'] }}">
                         <span class="content-from__text">{{ $product['name'] }}</span>
                     </div>
+                    @if ($product['sold_flag'] == 1)
+                        <div class="sold-overlay">SOLD</div>
+                    @endif
                 </a>
                 @endforeach
             </div>
         </div>
-        <div class="content-form__mylist product-list hidden" id="mylist">
+        <div class="content-form__product-list product-list hidden" id="mylist">
             <div class="content-form__card-list">
                 @foreach ($myList as $product)
-                <a href="/products/{{ $product['id'] }}">
+                <a class="content-form__card" href="/item/{{ $product['id'] }}">
                     <div class="content-form__group">
                         <img class="content-from__img" src="{{ asset('storage/' . $product['image']) }}" alt="{{ $product['name'] }}">
                         <span class="content-from__text">{{ $product['name'] }}</span>
                     </div>
+                    @if ($product['sold_flag'] == 1)
+                        <div class="sold-overlay">SOLD</div>
+                    @endif
                 </a>
                 @endforeach
             </div>
@@ -61,36 +71,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab');
     const productLists = document.querySelectorAll('.product-list');
+    const tabInput = document.getElementById('tab-input');
 
-    // ページ読み込み時にクエリパラメータを確認
     const params = new URLSearchParams(window.location.search);
-    const activeTab = params.get('tab') || 'recommend'; // デフォルトは'recommend'
+    const activeTab = params.get('tab') || tabInput.value;
+
     setActiveTab(activeTab);
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetId = tab.getAttribute('data-target');
 
-            // タブを切り替え
             setActiveTab(targetId);
+            tabInput.value = targetId;
 
-            // URLを更新
-            const newUrl = targetId === 'recommend' ? '/' : `/?tab=${targetId}`;
+            const newUrl = `/?tab=${targetId}`;
             history.pushState(null, '', newUrl);
         });
     });
 
     function setActiveTab(targetId) {
-        // 全てのタブを非アクティブ化
         tabs.forEach(t => t.classList.remove('active'));
-        // 対象のタブをアクティブ化
         document.querySelector(`.tab[data-target="${targetId}"]`).classList.add('active');
 
-        // 全てのリストを非表示
         productLists.forEach(list => list.classList.add('hidden'));
-        // 対応するリストを表示
         document.getElementById(targetId).classList.remove('hidden');
     }
 });
 </script>
-@endsection('content')
+@endsection

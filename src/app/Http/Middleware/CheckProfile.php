@@ -18,17 +18,14 @@ class CheckProfile
      */
     public function handle(Request $request, Closure $next)
     {
-        // ユーザーがログインしているか確認
         if (Auth::check()) {
-            // ユーザーのプロフィール情報を取得
             $user = Auth::user();
 
-            // プロフィール情報が登録されていない場合、プロフィール編集画面にリダイレクト
-            if (!$user->profile) { // `profile`はユーザーに関連するプロフィール情報が格納されているカラム
-                Session::flash('userId', $user->id);
+            if (!$user->profile) {
                 return redirect('/mypage/profile');
             }
         }
+        
         return $next($request);
     }
 }

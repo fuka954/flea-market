@@ -1,5 +1,5 @@
 .content {
-    background-color: #FFFF;
+    background-color: #FFFFFF;
 }
 
 .register-form__inner {
@@ -10,7 +10,7 @@
 .register-form__form {
     padding: 40px;
     width: 40vw;
-    background-color: #FFFF;
+    background-color: #FFFFFF;
 }
 
 @media screen and (max-width: 1200px) {
@@ -39,10 +39,6 @@
     width: 100%;
     height: 48px;
     border: 1px solid #5F5F5F
-}
-
-.register-form__error-message {
-    color: #FF9494;
 }
 
 .register-form__btn {

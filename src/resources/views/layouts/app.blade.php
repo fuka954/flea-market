@@ -16,8 +16,9 @@
 <body>
     <div class="app">
         <header class="header">
-            <!-- <h1 class="titlle">フリマ</h1> -->
-            <img src="{{ asset('images/logo.svg')}}" alt="ロゴ" class="header__logo">
+            <a class="header__logo" href="/">
+                <img src="{{ asset('images/logo.svg')}}" alt="ロゴ">
+            </a>
             @yield('search')
             @yield('nav')
         </header>

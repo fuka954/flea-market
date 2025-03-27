@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html,
 body {
     height: 100%;
@@ -30,32 +36,38 @@ h1 {
     color: white;
 }
 
-/* ヘッダー */
 .header {
     display: grid;
     align-items: center;
     padding: 16px 0;
-    max-height: 80px;
+    max-height: 90px;
     background: black;
     border: 1px solid #E0DFDE;
     text-align: center;
-    
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
 }
 
 .header__logo {
-    margin: 0 auto;
+    margin-left: 5%;
     width: 70%;
     grid-column: 1;
 }
 
-.header__search {
+.search-form {
     grid-column: 2;
-    font-size: 16px;
-    padding: 0 30px;
+}
+
+.header__search {
+    width: 100%;
+    font-size: clamp(9px, 1vw, 18px);
+    padding: 6px 30px;
     background: #FFFFFF;
     color: #000000;
+}
+
+.header__search::placeholder {
+    color: #4a4a4a99;
 }
 
 .header-form__form {
@@ -65,8 +77,10 @@ h1 {
 
 .header__nav {
     display: flex;
-    font-size: 16px;
+    font-size: clamp(9px, 1vw, 18px);
     padding-left: 25%;
+    justify-content: space-between;
+    align-items: center;
     grid-column: 3;
 }
 
@@ -76,19 +90,35 @@ h1 {
     color: #FFFFFF;
 }
 
+.header__link:last-of-type {
+    width: 15%;
+    padding: 5px;
+    color: #000000;
+    background: #FFFFFF;
+}
+
 .header__input {
     display: block;
     margin: 0 auto;
     color: #FFFFFF;
+    background: #000000;
+    border: none;
+    font-weight: bold;
+    font-size: clamp(9px, 1vw, 18px);
 }
 
+.container {
+    text-align: center;
+    font-size: 30px;
+    margin: 30px 0;
+    color: #4a4a4d9c;
+}
 
-/* コンテンツ */
 .content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 48px 0;
+    padding: 50px 0;
 }
 
 .content__heading {
@@ -96,7 +126,6 @@ h1 {
     font-size: 36px;
 }
 
-/* ボタン */
 .btn {
     display: block;
     width: 100%;
@@ -108,34 +137,12 @@ h1 {
     cursor: pointer;
 }
 
-/* ページネーション */
-.pagination {
-    display: flex;
-    justify-content: center;
-    list-style: none;
+.error-message {
+    color: #FF9494;
 }
 
-.pagination li:not(.active) {
-    border: 1px solid #E0DFDE;
-    padding: 4px 12px;
+.alert-success {
+    color: #FF9494;
+    text-align: center;
+    font-size: 26px;
 }
-
-.pagination li:not(:last-child) {
-    border-right: none;
-}
-
-.pagination a {
-    color: #8B7969;
-    text-decoration: none;
-}
-
-.pagination__link {
-    text-decoration: none;
-}
-
-/* .active {
-    padding: 4px 12px;
-    border: 1px solid #8B7969;
-    background-color: #8B7969;
-    color: #FFF;
-} */

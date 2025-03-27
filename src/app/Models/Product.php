@@ -12,11 +12,14 @@ class Product extends Model
     protected $fillable = [
         'id',
         'name',
+        'brand',
         'description',
         'image',
         'condition_id',
         'price',
+        'shipping_post_code',
         'shipping_address',
+        'shipping_building',
         'sold_flag',
         'sell_user',
         'buy_user',
@@ -44,7 +47,17 @@ class Product extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsToMany(Comment::class, 'product_comment');
     }
 
+    public function scopeSearch($query, $filters)
+    {
+        if (!empty($filters['search-text'])) {
+            $query->where(function($q) use ($filters) {
+                $q->where('name', 'like', '%' . $filters['search-text'] . '%');
+            });
+        }
+
+        return $query;
+    }
 }
