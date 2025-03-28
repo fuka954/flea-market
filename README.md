@@ -21,7 +21,7 @@ mysql:
 1. `docker-compose exec php bash`
 2. `composer install`
 3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
-4. .envに以下の環境変数を追加
+4. .envに以下の環境変数を追加。または、変更。StripeのAPIキーは、Stripeアカウントを作成し、API キーを発行して設定してください。
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -29,18 +29,28 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+
+MAIL_FROM_ADDRESS="noreply@example.com"
+
+STRIPE_KEY=pk_test_xxxxxxxxxxxxxxxxxxxx
+STRIPE_SECRET=sk_test_xxxxxxxxxxxxxxxxxxxx
 ```
 5. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
 ```
 
-6. マイグレーションの実行
+6. ストレージリンク作成
+``` bash
+php artisan storage:link
+```
+
+7. マイグレーションの実行
 ``` bash
 php artisan migrate
 ```
 
-7. シーディングの実行
+8. シーディングの実行
 ``` bash
 php artisan db:seed
 ```
@@ -52,12 +62,9 @@ php artisan db:seed
 - mailhog
 
 ## ER図
-![ER図](https://github.com/user-attachments/assets/e4a4e62d-9cd8-4f63-b932-ec31dcf7fa6c)
+![ER図](https://github.com/user-attachments/assets/41f7f9db-a411-4435-afd4-fb76eb8840cd)
 
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin：http://localhost:8080/
 - mailhog：http://localhost:8025/
-
-
-ER図とクローンキー
